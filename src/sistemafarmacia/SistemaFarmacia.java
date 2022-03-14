@@ -1,6 +1,6 @@
 package sistemafarmacia;
 
-import visao.Principal;
+import view.Principal;
 
 public class SistemaFarmacia {
     public static void main(String[] args) {
