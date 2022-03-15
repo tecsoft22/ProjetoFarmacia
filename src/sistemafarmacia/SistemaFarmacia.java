@@ -7,5 +7,9 @@ public class SistemaFarmacia {
         TelaPrincipal tela;
         tela = new TelaPrincipal();
         tela.setVisible(true);
+        
+        System.out.println("hgsadas");
+        
+        
     } 
 }
