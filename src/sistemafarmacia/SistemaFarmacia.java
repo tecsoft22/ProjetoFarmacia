@@ -1,11 +1,11 @@
 package sistemafarmacia;
 
-import view.Principal;
+import view.TelaPrincipal;
 
 public class SistemaFarmacia {
     public static void main(String[] args) {
-        Principal tela;
-        tela = new Principal(); 
+        TelaPrincipal tela;
+        tela = new TelaPrincipal();
         tela.setVisible(true);
     } 
 }
