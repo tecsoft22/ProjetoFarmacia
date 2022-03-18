@@ -44,6 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Farmácia");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(7, 98, 177));
 
@@ -54,9 +55,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1.setBounds(40, 130, 340, 120);
 
         jToolBar1.setBackground(new java.awt.Color(7, 98, 177));
+        jToolBar1.setBorder(null);
         jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jToolBar1.setRollover(true);
-        jToolBar1.setAlignmentX(0.0F);
         jToolBar1.setBorderPainted(false);
 
         jButton1.setBackground(new java.awt.Color(242, 242, 242));
@@ -173,9 +174,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 28, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(39, 66, 120));
