@@ -22,7 +22,6 @@ public class DAOUsuario {
         this.con=Conexao.AbrirConexao();
     }
     
-    
      public ArrayList consultarUsuarios() throws SQLException{
         ArrayList<Usuario> usuarios = new ArrayList();
         try{

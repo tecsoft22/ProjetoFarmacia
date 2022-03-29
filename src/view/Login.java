@@ -4,6 +4,20 @@
  */
 package view;
 
+import dao.Conexao;
+import dao.DAOUsuario;
+import java.util.ArrayList;
+import model.Usuario;
+import view.TelaPrincipal;
+import dao.Conexao;
+import java.sql.SQLException;
+import java.sql.Connection;
+import dao.DAOUsuario;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Usuario;
+
 /**
  *
  * @author admin
@@ -29,9 +43,9 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        txtEmail = new javax.swing.JFormattedTextField();
+        txtSenha = new javax.swing.JPasswordField();
+        btnEntrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,27 +66,37 @@ public class Login extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        jFormattedTextField1.setColumns(25);
+        txtEmail.setColumns(25);
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 15);
-        getContentPane().add(jFormattedTextField1, gridBagConstraints);
+        getContentPane().add(txtEmail, gridBagConstraints);
 
-        jPasswordField1.setColumns(25);
+        txtSenha.setColumns(25);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 15);
-        getContentPane().add(jPasswordField1, gridBagConstraints);
+        getContentPane().add(txtSenha, gridBagConstraints);
 
-        jButton1.setText("Entrar");
+        btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(btnEntrar, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fornecedor.png"))); // NOI18N
@@ -86,6 +110,44 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        String email = txtEmail.getText();
+        String senha =  String.valueOf(txtSenha.getPassword());
+        boolean verificado = false;
+        
+        //conferindo o email e senha
+        
+        Conexao c = new Conexao();
+        System.out.println(c);
+        
+        DAOUsuario d = new DAOUsuario();
+    
+        ArrayList<Usuario> usuarios;
+        try {
+            usuarios = d.consultarUsuarios();
+             if(!usuarios.isEmpty()){
+                for(Usuario p : usuarios){
+                    String pEmail = p.getEmail();
+                    String pSenha = p.getSenha();
+                    System.out.println("--------------------------------------");
+                    System.out.printf("\n %s \n %s \n", pEmail, pSenha);
+                    System.out.printf("\n %s \n %s \n", email, senha);
+                    System.out.println("--------------------------------------");
+                    
+                }
+        } 
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
+        
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,11 +185,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JFormattedTextField txtEmail;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
