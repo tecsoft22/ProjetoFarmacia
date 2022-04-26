@@ -1,5 +1,6 @@
 package sistemafarmacia;
 
+import control.AuthView;
 import view.TelaPrincipal;
 import dao.Conexao;
 import java.sql.SQLException;
@@ -28,11 +29,12 @@ public class SistemaFarmacia {
 //                System.out.println(p.getEmail());
 //            }
 //        }
-//        
+//                                   
 
-    Login tela = new Login();
-    
-    tela.setVisible(true);
+        Login tela = new Login();
+
+         tela.setVisible(true);
+         
         
     } 
 }

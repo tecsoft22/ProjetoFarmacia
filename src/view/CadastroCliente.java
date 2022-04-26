@@ -11,9 +11,12 @@ package view;
  */
 public class CadastroCliente extends javax.swing.JInternalFrame {
 
+    
     /**
      * Creates new form CadastroProduto
      */
+   
+    
     public CadastroCliente() {
         initComponents();
     }

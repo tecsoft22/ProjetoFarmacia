@@ -5,6 +5,8 @@
  */
 package view;
 
+import control.AuthView;
+
 /**
  *
  * @author admin
@@ -37,6 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btn_cadastrar_cliente = new javax.swing.JMenuItem();
@@ -140,9 +143,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(242, 242, 242));
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sair.png"))); // NOI18N
-        jButton4.setText("Sair");
-        jButton4.setToolTipText("Sair");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/produto.png"))); // NOI18N
+        jButton4.setText("Produtos");
+        jButton4.setToolTipText("Produtos");
         jButton4.setAlignmentX(0.5F);
         jButton4.setBorder(null);
         jButton4.setBorderPainted(false);
@@ -152,8 +155,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setMaximumSize(new java.awt.Dimension(70, 65));
         jButton4.setMinimumSize(new java.awt.Dimension(70, 65));
-        jButton4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sair-foco.png"))); // NOI18N
-        jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sair-foco.png"))); // NOI18N
+        jButton4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/produto-foco.png"))); // NOI18N
+        jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/produto-foco.png"))); // NOI18N
         jButton4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -163,8 +166,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton4);
 
+        btnSair.setBackground(new java.awt.Color(242, 242, 242));
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sair.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setToolTipText("Sair");
+        btnSair.setAlignmentX(0.5F);
+        btnSair.setBorder(null);
+        btnSair.setBorderPainted(false);
+        btnSair.setContentAreaFilled(false);
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSair.setFocusable(false);
+        btnSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSair.setMaximumSize(new java.awt.Dimension(70, 65));
+        btnSair.setMinimumSize(new java.awt.Dimension(70, 65));
+        btnSair.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sair-foco.png"))); // NOI18N
+        btnSair.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sair-foco.png"))); // NOI18N
+        btnSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnSair);
+
         jDesktopPane1.add(jToolBar1);
-        jToolBar1.setBounds(520, 30, 100, 240);
+        jToolBar1.setBounds(520, 30, 100, 330);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -241,15 +269,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.dispose();
+        AuthView.changeAutenticado();
+        System.out.println(AuthView.isAutenticado());
+    }//GEN-LAST:event_btnSairActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         CadastroProduto c = new CadastroProduto();
         jDesktopPane1.add(c);
         c.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,6 +321,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSair;
     private javax.swing.JMenuItem btn_cadastrar_cliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

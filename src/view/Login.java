@@ -4,6 +4,7 @@
  */
 package view;
 
+import control.AuthView;
 import dao.Conexao;
 import dao.DAOUsuario;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import dao.DAOUsuario;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Usuario;
 
 /**
@@ -116,37 +118,50 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+
         String email = txtEmail.getText();
-        String senha =  String.valueOf(txtSenha.getPassword());
-        boolean verificado = false;
-        
+        String senha = String.valueOf(txtSenha.getPassword());
+
         //conferindo o email e senha
-        
         Conexao c = new Conexao();
         System.out.println(c);
-        
+
         DAOUsuario d = new DAOUsuario();
-    
         ArrayList<Usuario> usuarios;
         try {
             usuarios = d.consultarUsuarios();
-             if(!usuarios.isEmpty()){
-                for(Usuario p : usuarios){
+            if (!usuarios.isEmpty()) {
+                for (Usuario p : usuarios) {
                     String pEmail = p.getEmail();
                     String pSenha = p.getSenha();
-                    System.out.println("--------------------------------------");
-                    System.out.printf("\n %s \n %s \n", pEmail, pSenha);
-                    System.out.printf("\n %s \n %s \n", email, senha);
-                    System.out.println("--------------------------------------");
-                    
+                    if (email.equals(pEmail) && senha.equals(pSenha)) {
+                        AuthView.changeAutenticado();
+                    }
+//                    System.out.println("--------------------------------------");
+//                    System.out.printf("\n %s \n %s \n", pEmail, pSenha);
+//                    System.out.printf("\n %s \n %s \n", email, senha);
+//                    System.out.println("--------------------------------------");
+//                    
+
                 }
-        } 
+
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
-        
+
+        if (!AuthView.isAutenticado()) {
+            JOptionPane.showMessageDialog(rootPane, "Usuário ou senha incorreto(s)");
+        } else {
+            TelaPrincipal tela;
+            tela = new TelaPrincipal();
+            AuthView.authenticator(tela);
+            System.out.println(AuthView.isAutenticado());
+            this.dispose();
+            
+        }
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
