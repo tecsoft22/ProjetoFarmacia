@@ -1,13 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package model;
 
-/**
- *
- * @author admin
- */
 public class Estoque {
+    private String cod_estoque;
+    private String qtd_produto_estoque;
+
+    public String getQtd_produto_estoque() {
+        return qtd_produto_estoque;
+    }
+
+    public void setQtd_produto_estoque(String qtd_produto_estoque) {
+        this.qtd_produto_estoque = qtd_produto_estoque;
+    }
     
 }

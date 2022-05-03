@@ -1,14 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
-/**
- *
- * @author admin
- */
 public class Fornecedor {
+    private String cod_fornecedor;
+    private String cod_pessoa;
+
+    public String getCod_pessoa() {
+        return cod_pessoa;
+    }
+
+    public void setCod_pessoa(String cod_pessoa) {
+        this.cod_pessoa = cod_pessoa;
+    }
+    
     
 }

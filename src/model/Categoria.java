@@ -10,4 +10,24 @@ package model;
  */
 public class Categoria {
     
+    private String cod_categoria;
+    private String nome_produto;
+
+    public String getCod_categoria() {
+        return cod_categoria;
+    }
+
+    public void setCod_categoria(String cod_categoria) {
+        this.cod_categoria = cod_categoria;
+    }
+
+    public String getNome_produto() {
+        return nome_produto;
+    }
+
+    public void setNome_produto(String nome_produto) {
+        this.nome_produto = nome_produto;
+    }
+    
+    
 }
