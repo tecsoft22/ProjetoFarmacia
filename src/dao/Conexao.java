@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexao {
-    public static Connection AbrirConexao(){
-        Connection con = null;            
+    
+    private static Connection con;
+    
+    public static Connection AbrirConexao(){       
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = ("jdbc:mysql://localhost/sistema_farmacia");
@@ -18,5 +20,13 @@ public class Conexao {
         }
         
         return con;
+    }
+    
+    public static Connection getCon(){
+        return con;
+    }
+    
+    public static void fecharConexao() throws SQLException{
+        con.close();
     }
 }
