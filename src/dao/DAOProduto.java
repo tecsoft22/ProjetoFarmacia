@@ -25,7 +25,6 @@ public class DAOProduto implements DAO<Produto> {
             Connection con = Conexao.getCon();
             PreparedStatement stmt = con.prepareStatement("INSERT INTO produto (nome_produto, cod_barras, preco, cod_estoque, cod_categoria) VALUES (?, ?, ?, ?, ?)");
             stmt.setString(1, t.getNome_produto());
-            stmt.
             Conexao.fecharConexao();
         } catch (SQLException ex) {
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
