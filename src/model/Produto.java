@@ -3,10 +3,22 @@ package model;
 public class Produto {
     
     private String nome_produto;
-    private String cod_barras;
+    private int cod_barras;
     private double preco;
-    private String cod_estoque;
-    private String cod_categoria;
+    private int cod_estoque;
+    private int cod_categoria;
+    
+    public Produto(String nome_produto, int cod_barras, double preco, int cod_estoque, int cod_categoria){
+        this.nome_produto = nome_produto;
+        this.preco = preco;
+        this.cod_barras = cod_barras;
+        this.cod_estoque = cod_estoque;
+        this.cod_categoria = cod_categoria;
+    }
+
+    public Produto(String nome, String cod_barras, double preco, String estoque) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public String getNome_produto() {
         return nome_produto;
@@ -16,11 +28,11 @@ public class Produto {
         this.nome_produto = nome_produto;
     }
 
-    public String getCod_barras() {
+    public int getCod_barras() {
         return cod_barras;
     }
 
-    public void setCod_barras(String cod_barras) {
+    public void setCod_barras(int cod_barras) {
         this.cod_barras = cod_barras;
     }
 
@@ -32,21 +44,23 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getCod_estoque() {
+    public int getCod_estoque() {
         return cod_estoque;
     }
 
-    public void setCod_estoque(String cod_estoque) {
+    public void setCod_estoque(int cod_estoque) {
         this.cod_estoque = cod_estoque;
     }
 
-    public String getCod_categoria() {
+    public int getCod_categoria() {
         return cod_categoria;
     }
 
-    public void setCod_categoria(String cod_categoria) {
+    public void setCod_categoria(int cod_categoria) {
         this.cod_categoria = cod_categoria;
     }
+    
+    
     
     
    
