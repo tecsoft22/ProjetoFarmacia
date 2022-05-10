@@ -356,7 +356,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         
         Produto produto = new Produto(nome, cod_barras, preco, estoque, categoria);
         DAOProduto dao = new DAOProduto();
-        
+        System.out.println("asjdbasds");
         if(dao.inserir(produto)){
             System.out.println("Inserido com sucesso!!");
         }

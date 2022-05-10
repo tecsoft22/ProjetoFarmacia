@@ -27,14 +27,14 @@ public class DAOProduto implements DAO<Produto> {
             stmt.setString(1, t.getNome_produto());
             stmt.setInt(2, t.getCod_barras());
             stmt.setDouble(3, t.getPreco());
-            stmt.setString(4, t.getCod_estoque());
-            stmt.setString(5, t.getCod_categoria());
+            stmt.setInt(4, t.getCod_estoque());
+            stmt.setInt(5, t.getCod_categoria());
+            stmt.execute();
             Conexao.fecharConexao();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }       
         return false;
     }
 

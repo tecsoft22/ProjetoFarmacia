@@ -16,10 +16,6 @@ public class Produto {
         this.cod_categoria = cod_categoria;
     }
 
-    public Produto(String nome, String cod_barras, double preco, String estoque) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public String getNome_produto() {
         return nome_produto;
     }
