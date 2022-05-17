@@ -6,6 +6,7 @@
 package view;
 
 import dao.DAOProduto;
+import java.util.ArrayList;
 import model.Produto;
 
 /**
@@ -359,6 +360,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         System.out.println("asjdbasds");
         if(dao.inserir(produto)){
             System.out.println("Inserido com sucesso!!");
+            ArrayList<Produto> produtos = dao.consultar(produto);
         }
         
     }//GEN-LAST:event_insertProductActionPerformed

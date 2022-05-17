@@ -15,6 +15,14 @@ public class Produto {
         this.cod_estoque = cod_estoque;
         this.cod_categoria = cod_categoria;
     }
+    
+    public Produto(){}
+
+    @Override
+    public String toString() {
+        return "Produto{" + "nome_produto=" + nome_produto + ", cod_barras=" + cod_barras + ", preco=" + preco + ", cod_estoque=" + cod_estoque + ", cod_categoria=" + cod_categoria + '}';
+    }
+
 
     public String getNome_produto() {
         return nome_produto;

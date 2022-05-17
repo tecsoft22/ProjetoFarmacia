@@ -6,7 +6,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Produto;
@@ -39,8 +41,29 @@ public class DAOProduto implements DAO<Produto> {
     }
 
     @Override
-    public Produto consultar(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Produto> consultar(Produto t) {
+        ArrayList<Produto> produtos = new ArrayList<>();
+        try{
+            Conexao.AbrirConexao();
+            Connection con = Conexao.getCon();
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM produto");
+            ResultSet res = stmt.executeQuery("SELECT * FROM produto");
+            while(res.next()){
+                Produto produto = new Produto();
+                produto.setCod_barras(res.getInt("cod_barras"));
+                produto.setCod_categoria(res.getInt("cod_categoria"));
+                produto.setCod_estoque(res.getInt("cod_produto"));
+                produto.setNome_produto(res.getString("nome_produto"));
+                produto.setPreco(res.getDouble("preco"));
+                produtos.add(produto);
+                System.out.println(produto);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produtos;
     }
 
     @Override
