@@ -7,6 +7,7 @@ package view;
 
 import dao.DAOProduto;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
 /**
@@ -20,6 +21,18 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
      */
     public CadastroProduto() {
         initComponents();
+        DAOProduto d = new DAOProduto();
+        DefaultTableModel table = (DefaultTableModel) tableProd.getModel();
+        table.getDataVector().removeAllElements();
+        ArrayList<Produto> produtos = d.consultarAll();
+        if(!produtos.isEmpty()){
+            for(Produto p : produtos){
+                Object[] dados = {p.getNome_produto(), p.getPreco(), p.getCod_categoria()};
+                table.addRow(dados);
+            }
+        }else{
+            table.getDataVector().removeAllElements();
+        }
     }
 
     /**
@@ -57,7 +70,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         categoria = new javax.swing.JComboBox<>();
         jSeparator5 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableProd = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,7 +249,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel2.add(categoria, gridBagConstraints);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -244,10 +257,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Preço Unit.", "Cod. de Barras", "Categoria"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tableProd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -360,7 +373,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         System.out.println("asjdbasds");
         if(dao.inserir(produto)){
             System.out.println("Inserido com sucesso!!");
-            ArrayList<Produto> produtos = dao.consultar(produto);
+            ArrayList<Produto> produtos = dao.consultarAll();
         }
         
     }//GEN-LAST:event_insertProductActionPerformed
@@ -395,8 +408,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tableProd;
     private javax.swing.JFormattedTextField txtCod;
     private javax.swing.JFormattedTextField txtEstoque;
     private javax.swing.JFormattedTextField txtNome;

@@ -41,7 +41,7 @@ public class DAOProduto implements DAO<Produto> {
     }
 
     @Override
-    public ArrayList<Produto> consultar(Produto t) {
+    public ArrayList<Produto> consultarItem(Produto t) {
         ArrayList<Produto> produtos = new ArrayList<>();
         try{
             Conexao.AbrirConexao();
@@ -65,7 +65,7 @@ public class DAOProduto implements DAO<Produto> {
         }
         return produtos;
     }
-
+    
     @Override
     public Produto atualizar(Produto t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -76,5 +76,12 @@ public class DAOProduto implements DAO<Produto> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-  
-}
+    @Override
+    public ArrayList<Produto> consultarAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+    }
+    
+ }
+
+ 
