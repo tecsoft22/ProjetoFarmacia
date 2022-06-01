@@ -5,10 +5,15 @@
  */
 package view;
 
+import dao.DAOCategoria;
 import dao.DAOProduto;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import model.Categoria;
 
 /**
  *
@@ -22,19 +27,31 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     public CadastroProduto() {
         initComponents();
         DAOProduto d = new DAOProduto();
-        DefaultTableModel table = (DefaultTableModel) tableProd.getModel();
+        DAOCategoria cat = new DAOCategoria();
+        DefaultTableModel table = (DefaultTableModel) tableProdutos.getModel();
         table.getDataVector().removeAllElements();
         ArrayList<Produto> produtos = d.consultarAll();
+        ArrayList<Categoria> categorias = cat.consultarAll();
         if(!produtos.isEmpty()){
             for(Produto p : produtos){
-                Object[] dados = {p.getNome_produto(), p.getPreco(), p.getCod_categoria()};
+                Object[] dados = {p.getNome_produto(), p.getPreco(),p.getCod_barras(), p.getCod_categoria()};
+                System.out.println(dados);
                 table.addRow(dados);
             }
         }else{
             table.getDataVector().removeAllElements();
         }
+        produtos.clear();
+        
+        if(!categorias.isEmpty()){
+            for(Categoria c : categorias){
+                comboCategoria.addItem(c.getNome_categoria());
+                System.out.println(c);
+            }
+        }
+        
+ 
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,10 +84,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         txtPrecoUn = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         txtCod = new javax.swing.JFormattedTextField();
-        categoria = new javax.swing.JComboBox<>();
+        comboCategoria = new javax.swing.JComboBox<>();
         jSeparator5 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableProd = new javax.swing.JTable();
+        tableProdutos = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,20 +253,20 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel2.add(txtCod, gridBagConstraints);
 
-        categoria.setMaximumRowCount(10);
-        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Limpeza", "Rémedio" }));
-        categoria.addActionListener(new java.awt.event.ActionListener() {
+        comboCategoria.setMaximumRowCount(10);
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Limpeza", "Rémedio" }));
+        comboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoriaActionPerformed(evt);
+                comboCategoriaActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(categoria, gridBagConstraints);
+        jPanel2.add(comboCategoria, gridBagConstraints);
 
-        tableProd.setModel(new javax.swing.table.DefaultTableModel(
+        tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -259,8 +276,16 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             new String [] {
                 "Nome", "Preço Unit.", "Cod. de Barras", "Categoria"
             }
-        ));
-        jScrollPane2.setViewportView(tableProd);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableProdutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -353,9 +378,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodActionPerformed
 
-    private void categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaActionPerformed
+    private void comboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_categoriaActionPerformed
+    }//GEN-LAST:event_comboCategoriaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -388,7 +413,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> categoria;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JButton insertProduct;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -409,7 +434,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTable tableProd;
+    private javax.swing.JTable tableProdutos;
     private javax.swing.JFormattedTextField txtCod;
     private javax.swing.JFormattedTextField txtEstoque;
     private javax.swing.JFormattedTextField txtNome;

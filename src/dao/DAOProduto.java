@@ -41,13 +41,49 @@ public class DAOProduto implements DAO<Produto> {
     }
 
     @Override
+    public boolean atualizar(Produto t) {
+        boolean updated = false;
+       
+        try {
+            Conexao.AbrirConexao();
+            Connection con = Conexao.getCon();  
+            PreparedStatement stmt = con.prepareStatement("UPDATE produto SET nome_produto = ?, preco = ?");
+            if(stmt.execute()){
+                updated = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            Conexao.fecharConexao();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return updated;
+        
+    }
+
+    @Override
+    public boolean excluir(Produto t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public ArrayList<Produto> consultarItem(Produto t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Produto> consultarAll() {
         ArrayList<Produto> produtos = new ArrayList<>();
         try{
             Conexao.AbrirConexao();
             Connection con = Conexao.getCon();
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM produto");
-            ResultSet res = stmt.executeQuery("SELECT * FROM produto");
+            ResultSet res = stmt.executeQuery();
             while(res.next()){
                 Produto produto = new Produto();
                 produto.setCod_barras(res.getInt("cod_barras"));
@@ -64,22 +100,6 @@ public class DAOProduto implements DAO<Produto> {
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return produtos;
-    }
-    
-    @Override
-    public Produto atualizar(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean excluir(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Produto> consultarAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        
     }
     
  }
