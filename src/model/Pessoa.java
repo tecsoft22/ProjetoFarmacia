@@ -4,8 +4,17 @@
  */
 package model;
 
-public abstract class Pessoa {
+public class Pessoa {
+    private int codPessoa;
     private String nome;
+
+    public int getCodPessoa() {
+        return codPessoa;
+    }
+
+    public void setCodPessoa(int codPessoa) {
+        this.codPessoa = codPessoa;
+    }
 
     public String getNome() {
         return nome;
@@ -13,6 +22,11 @@ public abstract class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "codPessoa=" + codPessoa + ", nome=" + nome + '}';
     }
     
     

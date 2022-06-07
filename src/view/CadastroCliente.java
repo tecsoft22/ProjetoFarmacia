@@ -5,6 +5,13 @@
  */
 package view;
 
+import dao.DAOCliente;
+import dao.DAOPessoa;
+import dao.PessoaFisicaDAO;
+import model.Cliente;
+import model.Pessoa;
+import model.PessoaFisica;
+
 /**
  *
  * @author Enderson
@@ -40,16 +47,16 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAddCliente = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtNome = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jFormattedTextField5 = new javax.swing.JFormattedTextField();
-        jFormattedTextField6 = new javax.swing.JFormattedTextField();
+        txtCPF = new javax.swing.JFormattedTextField();
+        txtRG = new javax.swing.JFormattedTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -91,18 +98,18 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         });
         jPanel1.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(242, 242, 242));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar.png"))); // NOI18N
-        jButton2.setText("Salvar");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar-foco.png"))); // NOI18N
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCliente.setBackground(new java.awt.Color(242, 242, 242));
+        btnAddCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar.png"))); // NOI18N
+        btnAddCliente.setText("Salvar");
+        btnAddCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAddCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar-foco.png"))); // NOI18N
+        btnAddCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAddClienteActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
+        jPanel1.add(btnAddCliente);
 
         jButton3.setBackground(new java.awt.Color(242, 242, 242));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir.png"))); // NOI18N
@@ -140,13 +147,13 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel2.add(jLabel1, gridBagConstraints);
 
-        jFormattedTextField1.setColumns(23);
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNome.setColumns(23);
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                txtNomeActionPerformed(evt);
             }
         });
-        jPanel2.add(jFormattedTextField1, new java.awt.GridBagConstraints());
+        jPanel2.add(txtNome, new java.awt.GridBagConstraints());
 
         jLabel2.setText("RG:");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -165,29 +172,29 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel2.add(jLabel5, gridBagConstraints);
 
-        jFormattedTextField5.setColumns(10);
-        jFormattedTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtCPF.setColumns(10);
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField5ActionPerformed(evt);
+                txtCPFActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(jFormattedTextField5, gridBagConstraints);
+        jPanel2.add(txtCPF, gridBagConstraints);
 
-        jFormattedTextField6.setColumns(10);
-        jFormattedTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtRG.setColumns(10);
+        txtRG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField6ActionPerformed(evt);
+                txtRGActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(jFormattedTextField6, gridBagConstraints);
+        jPanel2.add(txtRG, gridBagConstraints);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -277,25 +284,50 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void jFormattedTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField5ActionPerformed
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField5ActionPerformed
+    }//GEN-LAST:event_txtCPFActionPerformed
 
-    private void jFormattedTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField6ActionPerformed
+    private void txtRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRGActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField6ActionPerformed
+    }//GEN-LAST:event_txtRGActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
+        String nome = txtNome.getText();
+        String cpf = txtCPF.getText();
+        String rg = txtRG.getText();
+        //PESSOA
+        DAOPessoa p = new DAOPessoa();
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(nome);
+        if(p.inserir(pessoa)){
+            System.out.println("PESSOA INSERIDA");
+            //PESSOAFISICA
+            PessoaFisicaDAO pf = new PessoaFisicaDAO();
+            PessoaFisica pessoaF = new PessoaFisica();
+            pessoaF.setCpf(cpf);
+            pessoaF.setRg(rg);
+            if(pf.inserir(pessoaF)){
+                System.out.println("PESSOA FISICA INSERIDA");
+                //CLIENTE
+                DAOCliente cliente = new DAOCliente();
+                Cliente cl = new Cliente();
+                if(cliente.inserir(cl)){
+                    System.out.println("CLIENTE INSERIDO");
+                }
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btnAddClienteActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -307,13 +339,10 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCliente;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField5;
-    private javax.swing.JFormattedTextField jFormattedTextField6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -329,5 +358,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JFormattedTextField txtNome;
+    private javax.swing.JFormattedTextField txtRG;
     // End of variables declaration//GEN-END:variables
 }

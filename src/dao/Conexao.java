@@ -29,4 +29,5 @@ public class Conexao {
     public static void fecharConexao() throws SQLException{
         con.close();
     }
+
 }

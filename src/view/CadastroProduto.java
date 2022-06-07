@@ -255,6 +255,16 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         comboCategoria.setMaximumRowCount(10);
         comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Limpeza", "Rémedio" }));
+        comboCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                changedItem(evt);
+            }
+        });
+        comboCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboCategoriaMouseClicked(evt);
+            }
+        });
         comboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCategoriaActionPerformed(evt);
@@ -410,6 +420,14 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void comboCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCategoriaMouseClicked
+        
+    }//GEN-LAST:event_comboCategoriaMouseClicked
+
+    private void changedItem(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_changedItem
+        System.out.println("mudou");
+    }//GEN-LAST:event_changedItem
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

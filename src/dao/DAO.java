@@ -9,4 +9,6 @@ public interface DAO<T> {
     public ArrayList<T> consultarAll();
     public boolean atualizar(T t);
     public boolean excluir(T t);
+    
+//    public T consultarUltimo();;
 }
