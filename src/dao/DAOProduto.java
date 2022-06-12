@@ -88,7 +88,7 @@ public class DAOProduto implements DAO<Produto> {
     }
 
     @Override
-    public ArrayList<Produto> consultarItem(Produto t) {
+    public Produto consultarItem(Produto t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

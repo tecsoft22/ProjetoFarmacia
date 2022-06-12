@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.PessoaFisica;
 
 
@@ -42,7 +44,7 @@ public class DAOPessoaFisica implements DAO<PessoaFisica>{
     }
 
     @Override
-    public ArrayList<PessoaFisica> consultarItem(PessoaFisica t) {
+    public PessoaFisica consultarItem(PessoaFisica t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -53,7 +55,31 @@ public class DAOPessoaFisica implements DAO<PessoaFisica>{
 
     @Override
     public boolean atualizar(PessoaFisica t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean updated = false;
+       
+        try {
+            Conexao.AbrirConexao();
+            Connection con = Conexao.getCon();  
+            PreparedStatement stmt = con.prepareStatement("UPDATE pessoa_fisica SET cpf = ?, rg = ? WHERE cod_p_fisica = ?");
+            stmt.setString(1, t.getCpf());
+            stmt.setString(2, t.getRg());
+            stmt.setInt(3, t.getCodPFisica());
+            if(stmt.executeUpdate() != 1){
+            } else {
+                updated = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            Conexao.fecharConexao();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return updated;
     }
 
     @Override

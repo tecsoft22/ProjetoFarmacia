@@ -31,10 +31,13 @@ public class SistemaFarmacia {
 //        }
 //                                   
 
-        Login tela = new Login();
+        Login tela = new Login();;
 
          tela.setVisible(true);
          
         
+//        String num = "15.57";;
+//        Double n = Double.parseDouble(num);
+//        System.out.println(num);
     } 
 }

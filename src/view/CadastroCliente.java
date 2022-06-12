@@ -8,6 +8,9 @@ package view;
 import dao.DAOCliente;
 import dao.DAOPessoa;
 import dao.DAOPessoaFisica;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Pessoa;
 import model.PessoaFisica;
@@ -16,7 +19,7 @@ import model.PessoaFisica;
  *
  * @author Enderson
  */
-public class CadastroCliente extends javax.swing.JInternalFrame {
+public final class CadastroCliente extends javax.swing.JInternalFrame {
 
     
     /**
@@ -26,6 +29,24 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     
     public CadastroCliente() {
         initComponents();
+        carregarClientesTable();
+    }
+    
+    public void carregarClientesTable(){
+        DAOCliente cli = new DAOCliente();
+        DefaultTableModel table = (DefaultTableModel) tableClientes.getModel();
+        table.getDataVector().removeAllElements();
+        ArrayList<Cliente> clientes = cli.consultarAll();
+        if(!clientes.isEmpty()){
+            for(Cliente c : clientes){
+                Object[] dados = {c.getCod_cliente(), c.getNome(), c.getCpf(), c.getRg()};
+                System.out.println(dados);
+                table.addRow(dados);
+            }
+        }else{
+            table.getDataVector().removeAllElements();
+        }
+        clientes.clear();
     }
 
     /**
@@ -46,10 +67,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        btnAddCliente = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JFormattedTextField();
@@ -59,7 +79,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         txtRG = new javax.swing.JFormattedTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableClientes = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,31 +105,31 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jToolBar1.setBorderPainted(false);
         jPanel1.add(jToolBar1);
 
-        jButton1.setBackground(new java.awt.Color(242, 242, 242));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
-        jButton1.setText("Novo");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-foco.png"))); // NOI18N
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setBackground(new java.awt.Color(242, 242, 242));
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCadastrar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-foco.png"))); // NOI18N
+        btnCadastrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jPanel1.add(btnCadastrar);
 
-        btnAddCliente.setBackground(new java.awt.Color(242, 242, 242));
-        btnAddCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar.png"))); // NOI18N
-        btnAddCliente.setText("Salvar");
-        btnAddCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAddCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar-foco.png"))); // NOI18N
-        btnAddCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAddCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnAtualizar.setBackground(new java.awt.Color(242, 242, 242));
+        btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar.png"))); // NOI18N
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAtualizar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar-foco.png"))); // NOI18N
+        btnAtualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddClienteActionPerformed(evt);
+                btnAtualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddCliente);
+        jPanel1.add(btnAtualizar);
 
         jButton3.setBackground(new java.awt.Color(242, 242, 242));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir.png"))); // NOI18N
@@ -123,19 +143,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(jButton3);
-
-        jButton4.setBackground(new java.awt.Color(242, 242, 242));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancelar.png"))); // NOI18N
-        jButton4.setText("Cancelar");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancelar-foco.png"))); // NOI18N
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4);
 
         jPanel2.setName(""); // NOI18N
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -196,7 +203,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel2.add(txtRG, gridBagConstraints);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -204,10 +211,31 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "CPF", "RG"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClientesMouseClicked(evt);
+            }
+        });
+        tableClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tableClientesKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableClientes);
+        if (tableClientes.getColumnModel().getColumnCount() > 0) {
+            tableClientes.getColumnModel().getColumn(0).setPreferredWidth(2);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -296,12 +324,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRGActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnAddClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteActionPerformed
-        String nome = txtNome.getText();
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+       String nome = txtNome.getText();
         String cpf = txtCPF.getText();
         String rg = txtRG.getText();
         //PESSOA
@@ -325,24 +349,57 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 }
             }
         }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+         DefaultTableModel table = (DefaultTableModel) tableClientes.getModel();
+        if(tableClientes.getSelectedRow() != -1){
+            
+            String nome = txtNome.getText();
+            String CPF = txtCPF.getText();
+            String RG = txtRG.getText();
+            
+            Cliente cliente = new Cliente();
+            int cod = (int) tableClientes.getValueAt(tableClientes.getSelectedRow(), 0);
+            cliente.setCod_cliente(cod);
+            DAOCliente dc = new DAOCliente();
+            Cliente newCliente = dc.consultarItem(cliente);
+            newCliente.setNome(nome);
+            newCliente.setCpf(CPF);
+            newCliente.setRg(RG);
+            
+            if(dc.atualizar(newCliente)){
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
+                carregarClientesTable();
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o item.");
+            }    
+        }           
         
         
-    }//GEN-LAST:event_btnAddClienteActionPerformed
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void tableClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableClientesKeyReleased
+        txtNome.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 1).toString());
+        txtCPF.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).toString());
+        txtRG.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 3).toString());   
+    }//GEN-LAST:event_tableClientesKeyReleased
+
+    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+       txtNome.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 1).toString());
+        txtCPF.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 2).toString());
+        txtRG.setText(tableClientes.getValueAt(tableClientes.getSelectedRow(), 3).toString());   
+    }//GEN-LAST:event_tableClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCliente;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -356,8 +413,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tableClientes;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JFormattedTextField txtNome;
     private javax.swing.JFormattedTextField txtRG;

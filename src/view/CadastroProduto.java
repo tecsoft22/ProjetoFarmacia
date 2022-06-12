@@ -410,13 +410,14 @@ public final class CadastroProduto extends javax.swing.JInternalFrame {
         }   
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    
     private void insertProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertProductActionPerformed
         String nome = txtNome.getText();
         double preco = Double.parseDouble(txtPrecoUn.getText());
         int cod_barras = Integer.parseInt(txtCod.getText());
         int estoque = Integer.parseInt(txtEstoque.getText());
         int categoria = (int) comboCategoria.getSelectedIndex() + 1;
-        
+
         Produto produto = new Produto(nome, cod_barras, preco, estoque, categoria);
         DAOProduto dao = new DAOProduto();
         System.out.println("asjdbasds");
@@ -424,8 +425,10 @@ public final class CadastroProduto extends javax.swing.JInternalFrame {
             System.out.println("Inserido com sucesso!!");
             ArrayList<Produto> produtos = dao.consultarAll();
             carregarProdutosTable();
-            
+
         }
+        
+       
         
     }//GEN-LAST:event_insertProductActionPerformed
 
@@ -472,7 +475,6 @@ public final class CadastroProduto extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_tableProdutosMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;

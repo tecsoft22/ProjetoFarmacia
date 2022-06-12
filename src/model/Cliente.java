@@ -1,6 +1,6 @@
 package model;
 
-public class Cliente {
+public class Cliente extends PessoaFisica{
     private int cod_cliente;
     private int cod_pessoa_fisica;
 

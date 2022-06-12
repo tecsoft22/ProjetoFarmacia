@@ -37,7 +37,7 @@ public class DAOPessoa implements DAO<Pessoa>{
     }
 
     @Override
-    public ArrayList<Pessoa> consultarItem(Pessoa t) {
+    public Pessoa consultarItem(Pessoa t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -49,7 +49,30 @@ public class DAOPessoa implements DAO<Pessoa>{
 
     @Override
     public boolean atualizar(Pessoa t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         boolean updated = false;
+       
+        try {
+            Conexao.AbrirConexao();
+            Connection con = Conexao.getCon();  
+            PreparedStatement stmt = con.prepareStatement("UPDATE pessoa SET nome = ? WHERE cod_pessoa = ?");
+            stmt.setString(1, t.getNome());
+            stmt.setDouble(2, t.getCodPessoa());
+            if(stmt.executeUpdate() != 1){
+            } else {
+                updated = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            Conexao.fecharConexao();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return updated;
     }
 
     @Override

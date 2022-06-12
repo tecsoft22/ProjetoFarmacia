@@ -23,7 +23,7 @@ public class DAOCategoria implements DAO<Categoria> {
     }
 
     @Override
-    public ArrayList<Categoria> consultarItem(Categoria t) {
+    public Categoria consultarItem(Categoria t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
