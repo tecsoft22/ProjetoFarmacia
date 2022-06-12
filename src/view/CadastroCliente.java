@@ -7,7 +7,7 @@ package view;
 
 import dao.DAOCliente;
 import dao.DAOPessoa;
-import dao.PessoaFisicaDAO;
+import dao.DAOPessoaFisica;
 import model.Cliente;
 import model.Pessoa;
 import model.PessoaFisica;
@@ -311,7 +311,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         if(p.inserir(pessoa)){
             System.out.println("PESSOA INSERIDA");
             //PESSOAFISICA
-            PessoaFisicaDAO pf = new PessoaFisicaDAO();
+            DAOPessoaFisica pf = new DAOPessoaFisica();
             PessoaFisica pessoaF = new PessoaFisica();
             pessoaF.setCpf(cpf);
             pessoaF.setRg(rg);

@@ -29,7 +29,7 @@ public class DAOCliente implements  DAO<Cliente> {
             String sql = "INSERT INTO cliente (cod_pessoa_fisica) VALUES (?)";
             PreparedStatement stmt = con.prepareStatement(sql);           
              //PEGA O ÚLTIMO REGISTRO INSERIDO NO BANCO DE DADOS *PESSOA_FISICA*
-            int codigo = PessoaFisicaDAO.consultarUltimo().getCodPFisica();
+            int codigo = DAOPessoaFisica.consultarUltimo().getCodPFisica();
             stmt.setInt(1, codigo);
             stmt.execute();
             Conexao.fecharConexao();
@@ -74,7 +74,7 @@ public class DAOCliente implements  DAO<Cliente> {
         pessoa.setNome(nome);
         p.inserir(pessoa);
         //PESSOAFISICA
-        PessoaFisicaDAO pf = new PessoaFisicaDAO();
+        DAOPessoaFisica pf = new DAOPessoaFisica();
         PessoaFisica pessoaF = new PessoaFisica();
         pessoaF.setCpf(cpf);
         pessoaF.setRg(rg);

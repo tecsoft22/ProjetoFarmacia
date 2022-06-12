@@ -19,13 +19,17 @@ import model.Categoria;
  *
  * @author Enderson
  */
-public class CadastroProduto extends javax.swing.JInternalFrame {
+public final class CadastroProduto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CadastroProduto
      */
     public CadastroProduto() {
         initComponents();
+        carregarProdutosTable();
+    }
+    
+    public void carregarProdutosTable(){
         DAOProduto d = new DAOProduto();
         DAOCategoria cat = new DAOCategoria();
         DefaultTableModel table = (DefaultTableModel) tableProdutos.getModel();
@@ -34,7 +38,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         ArrayList<Categoria> categorias = cat.consultarAll();
         if(!produtos.isEmpty()){
             for(Produto p : produtos){
-                Object[] dados = {p.getNome_produto(), p.getPreco(),p.getCod_barras(), p.getCod_categoria()};
+                Object[] dados = {p.getCod_produto(), p.getNome_produto(), p.getPreco(),p.getCod_barras(), p.getCod_categoria()};
                 System.out.println(dados);
                 table.addRow(dados);
             }
@@ -49,8 +53,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 System.out.println(c);
             }
         }
-        
- 
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,10 +72,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
         insertProduct = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JFormattedTextField();
@@ -113,24 +114,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jToolBar1.setBorderPainted(false);
         jPanel1.add(jToolBar1);
 
-        jButton1.setBackground(new java.awt.Color(242, 242, 242));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
-        jButton1.setText("Novo");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-foco.png"))); // NOI18N
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-
         insertProduct.setBackground(new java.awt.Color(242, 242, 242));
-        insertProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar.png"))); // NOI18N
-        insertProduct.setText("Salvar");
+        insertProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo.png"))); // NOI18N
+        insertProduct.setText("Cadastrar");
         insertProduct.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        insertProduct.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar-foco.png"))); // NOI18N
+        insertProduct.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-foco.png"))); // NOI18N
         insertProduct.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         insertProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,31 +127,31 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         });
         jPanel1.add(insertProduct);
 
-        jButton3.setBackground(new java.awt.Color(242, 242, 242));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir.png"))); // NOI18N
-        jButton3.setText("Excluir");
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir-foco.png"))); // NOI18N
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAtualizar.setBackground(new java.awt.Color(242, 242, 242));
+        btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar.png"))); // NOI18N
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAtualizar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salvar-foco.png"))); // NOI18N
+        btnAtualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAtualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3);
+        jPanel1.add(btnAtualizar);
 
-        jButton4.setBackground(new java.awt.Color(242, 242, 242));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancelar.png"))); // NOI18N
-        jButton4.setText("Cancelar");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancelar-foco.png"))); // NOI18N
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setBackground(new java.awt.Color(242, 242, 242));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExcluir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir-foco.png"))); // NOI18N
+        btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4);
+        jPanel1.add(btnExcluir);
 
         jPanel2.setName(""); // NOI18N
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -206,7 +194,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(jLabel3, gridBagConstraints);
 
@@ -254,15 +242,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jPanel2.add(txtCod, gridBagConstraints);
 
         comboCategoria.setMaximumRowCount(10);
-        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Limpeza", "Rémedio" }));
         comboCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 changedItem(evt);
-            }
-        });
-        comboCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboCategoriaMouseClicked(evt);
             }
         });
         comboCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -272,30 +254,44 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel2.add(comboCategoria, gridBagConstraints);
 
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Preço Unit.", "Cod. de Barras", "Categoria"
+                "ID", "Nome", "Preço Unit.", "Cod. de Barras", "Categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProdutosMouseClicked(evt);
+            }
+        });
+        tableProdutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tableProdutosKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableProdutos);
+        if (tableProdutos.getColumnModel().getColumnCount() > 0) {
+            tableProdutos.getColumnModel().getColumn(0).setResizable(false);
+            tableProdutos.getColumnModel().getColumn(0).setPreferredWidth(2);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -311,29 +307,29 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 236, Short.MAX_VALUE)
+                    .addGap(0, 223, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 237, Short.MAX_VALUE)))
+                    .addGap(0, 223, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 236, Short.MAX_VALUE)
+                    .addGap(0, 223, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 237, Short.MAX_VALUE)))
+                    .addGap(0, 223, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 236, Short.MAX_VALUE)
+                    .addGap(0, 223, Short.MAX_VALUE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 237, Short.MAX_VALUE)))
+                    .addGap(0, 223, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 236, Short.MAX_VALUE)
+                    .addGap(0, 223, Short.MAX_VALUE)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 237, Short.MAX_VALUE)))
+                    .addGap(0, 223, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,24 +345,24 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGap(24, 24, 24))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 188, Short.MAX_VALUE)
+                    .addGap(0, 199, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 188, Short.MAX_VALUE)))
+                    .addGap(0, 199, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 189, Short.MAX_VALUE)
+                    .addGap(0, 200, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 201, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 189, Short.MAX_VALUE)
+                    .addGap(0, 200, Short.MAX_VALUE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 201, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 189, Short.MAX_VALUE)
+                    .addGap(0, 200, Short.MAX_VALUE)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 201, Short.MAX_VALUE)))
         );
 
         pack();
@@ -392,16 +388,34 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboCategoriaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        DefaultTableModel table = (DefaultTableModel) tableProdutos.getModel();
+        if(tableProdutos.getSelectedRow() != -1){
+            Produto p = new Produto();
+            //
+            String nome = txtNome.getText();
+            double preco = Double.valueOf(txtPrecoUn.getText());
+            int cod = (int) tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 0);
+            //
+            p.setCod_produto(cod);
+            p.setNome_produto(nome);
+            p.setPreco(preco);
+            DAOProduto d = new DAOProduto();
+            if(d.atualizar(p)){
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
+                carregarProdutosTable();
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o item.");
+            }    
+        }   
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void insertProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertProductActionPerformed
         String nome = txtNome.getText();
         double preco = Double.parseDouble(txtPrecoUn.getText());
         int cod_barras = Integer.parseInt(txtCod.getText());
         int estoque = Integer.parseInt(txtEstoque.getText());
-        int categoria = 2;
+        int categoria = (int) comboCategoria.getSelectedIndex() + 1;
         
         Produto produto = new Produto(nome, cod_barras, preco, estoque, categoria);
         DAOProduto dao = new DAOProduto();
@@ -409,33 +423,62 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         if(dao.inserir(produto)){
             System.out.println("Inserido com sucesso!!");
             ArrayList<Produto> produtos = dao.consultarAll();
+            carregarProdutosTable();
+            
         }
         
     }//GEN-LAST:event_insertProductActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void comboCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCategoriaMouseClicked
-        
-    }//GEN-LAST:event_comboCategoriaMouseClicked
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+       DefaultTableModel table = (DefaultTableModel) tableProdutos.getModel();
+        if(tableProdutos.getSelectedRow() != -1){
+            Produto p = new Produto();
+            int cod = (int) tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 0);
+            p.setCod_produto(cod);
+            DAOProduto d = new DAOProduto();
+            if(d.excluir(p)){
+                JOptionPane.showMessageDialog(null, "Excluído com sucesso.");
+                table.removeRow(tableProdutos.getSelectedRow());
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao excluir o item.");
+            }    
+        }   
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void changedItem(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_changedItem
         System.out.println("mudou");
     }//GEN-LAST:event_changedItem
 
+    private void tableProdutosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableProdutosKeyReleased
+       if(tableProdutos.getSelectedRow() != -1){
+            txtNome.setText(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 1).toString());
+            txtPrecoUn.setText(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 2).toString());
+            txtCod.setText(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 3).toString());      
+            int categoria = (int) tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 4) - 1; 
+            comboCategoria.setSelectedIndex(categoria);
+            //comboCategoria.setSelectedIndex(Integer.parseInt(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 3).toString())));
+            //comboCategoria.getItemAt(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 3).toString());
+            
+        }
+    }//GEN-LAST:event_tableProdutosKeyReleased
+
+    private void tableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProdutosMouseClicked
+      if(tableProdutos.getSelectedRow() != -1){
+            txtNome.setText(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 1).toString());
+            txtPrecoUn.setText(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 2).toString());
+            txtCod.setText(tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 3).toString());          
+            int categoria = (int) tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 4) - 1;
+            comboCategoria.setSelectedIndex(categoria);
+            
+        }
+    }//GEN-LAST:event_tableProdutosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JButton insertProduct;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -47,8 +47,12 @@ public class DAOProduto implements DAO<Produto> {
         try {
             Conexao.AbrirConexao();
             Connection con = Conexao.getCon();  
-            PreparedStatement stmt = con.prepareStatement("UPDATE produto SET nome_produto = ?, preco = ?");
-            if(stmt.execute()){
+            PreparedStatement stmt = con.prepareStatement("UPDATE produto SET nome_produto = ?, preco = ? WHERE cod_produto = ?");
+            stmt.setString(1, t.getNome_produto());
+            stmt.setDouble(2, t.getPreco());
+            stmt.setInt(3, t.getCod_produto());
+            if(stmt.executeUpdate() != 1){
+            } else {
                 updated = true;
             }
         } catch (SQLException ex) {
@@ -68,7 +72,19 @@ public class DAOProduto implements DAO<Produto> {
 
     @Override
     public boolean excluir(Produto t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Boolean deletado = false;
+        try{
+            Conexao.AbrirConexao();
+            Connection con = Conexao.getCon();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM produto WHERE cod_produto=" + t.getCod_produto());
+            if(stmt.executeUpdate() != 1){
+            } else {
+                deletado = true;
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return deletado;
     }
 
     @Override
@@ -86,6 +102,7 @@ public class DAOProduto implements DAO<Produto> {
             ResultSet res = stmt.executeQuery();
             while(res.next()){
                 Produto produto = new Produto();
+                produto.setCod_produto(res.getInt("cod_produto"));
                 produto.setCod_barras(res.getInt("cod_barras"));
                 produto.setCod_categoria(res.getInt("cod_categoria"));
                 produto.setCod_estoque(res.getInt("cod_produto"));

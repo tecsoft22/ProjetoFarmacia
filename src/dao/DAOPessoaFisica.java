@@ -16,7 +16,7 @@ import model.PessoaFisica;
  *
  * @author aluno
  */
-public class PessoaFisicaDAO implements DAO<PessoaFisica>{
+public class DAOPessoaFisica implements DAO<PessoaFisica>{
 
     @Override
     public boolean inserir(PessoaFisica t) {
@@ -85,7 +85,7 @@ public class PessoaFisicaDAO implements DAO<PessoaFisica>{
     }
     
      public static void main(String[] args) {
-        PessoaFisica p = PessoaFisicaDAO.consultarUltimo();
+        PessoaFisica p = DAOPessoaFisica.consultarUltimo();
         System.out.println(p);
     }
     

@@ -1,7 +1,7 @@
 package model;
 
 public class Produto {
-    
+    private int cod_produto;
     private String nome_produto;
     private int cod_barras;
     private double preco;
@@ -22,6 +22,16 @@ public class Produto {
     public String toString() {
         return "Produto{" + "nome_produto=" + nome_produto + ", cod_barras=" + cod_barras + ", preco=" + preco + ", cod_estoque=" + cod_estoque + ", cod_categoria=" + cod_categoria + '}';
     }
+
+    public int getCod_produto() {
+        return cod_produto;
+    }
+
+    public void setCod_produto(int cod_produto) {
+        this.cod_produto = cod_produto;
+    }
+    
+    
 
 
     public String getNome_produto() {
