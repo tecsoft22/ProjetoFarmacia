@@ -54,6 +54,17 @@ public final class CadastroProduto extends javax.swing.JInternalFrame {
             }
         }
     }
+    
+    public void carregarCategoriaTable(){
+        DAOCategoria cat = new DAOCategoria();
+        ArrayList<Categoria> categorias = cat.consultarAll();
+        if(!categorias.isEmpty()){
+            for(Categoria c : categorias){
+                comboCategoria.addItem(c.getNome_categoria());
+                System.out.println(c);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

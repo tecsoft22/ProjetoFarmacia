@@ -47,7 +47,8 @@ public class DAOCliente implements  DAO<Cliente> {
         try{
             Conexao.AbrirConexao();
             Connection con = Conexao.getCon();
-            PreparedStatement stmt = con.prepareStatement("SELECT pessoa.cod_pessoa ,cliente.cod_cliente, pessoa_fisica.cod_p_fisica ,pessoa.nome, pessoa_fisica.cpf, pessoa_fisica.rg FROM cliente join pessoa_fisica on cliente.cod_pessoa_fisica = pessoa_fisica.cod_p_fisica join pessoa on pessoa_fisica.cod_pessoa = pessoa.cod_pessoa WHERE cod_cliente ="+t.getCod_cliente());
+            PreparedStatement stmt = con.prepareStatement("SELECT pessoa.cod_pessoa ,cliente.cod_cliente, pessoa_fisica.cod_p_fisica ,pessoa.nome, pessoa_fisica.cpf, pessoa_fisica.rg FROM cliente join pessoa_fisica on cliente.cod_pessoa_fisica = pessoa_fisica.cod_p_fisica join pessoa on pessoa_fisica.cod_pessoa = pessoa.cod_pessoa WHERE cod_cliente ="+t.getCod_cliente()+
+                    "OR pessoa.nome LIKE"+t.getNome()+"OR pessoa_fisica.cpf LIKE"+t.getCpf()+" OR pessoa_fisica.rg LIKE"+t.getRg());
             ResultSet res = stmt.executeQuery();
             while(res.next()){
                 cliente.setCodPessoa(res.getInt("pessoa.cod_pessoa"));
